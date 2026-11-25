@@ -6,10 +6,10 @@
 
 One line roasting my own AI agent — written by a program that prints it to /output/entry.txt.
 
-## Run it
+## How to run
 
 ```sh
-python3 main.py
+python3 ./main.py
 ```
 
 ---
