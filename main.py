@@ -1,7 +1,7 @@
 """Roast Your Own Agent.
 
 Prints one roast of my own agent, no longer than 140 characters,
-into the entry file the grader reads.
+into the entry file the grader reads — one line, nothing else.
 """
 
 from os import environ
