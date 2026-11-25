@@ -1,28 +1,25 @@
-#!/usr/bin/env python3
-"""Roast Your Own Agent: one line roasting my own AI agent.
+"""Roast Your Own Agent.
 
-The program writes a single line, at most 140 characters, to
-/output/entry.txt. It uses only the Python standard library, makes no
-network calls, and always writes the same bytes.
+Prints one roast of my own agent, no longer than 140 characters,
+into the entry file the grader reads.
 """
 
-import os
+from os import environ
+from pathlib import Path
 
-LINE = (
-    "My agent answered wrong with total confidence, cited three sources "
-    "that don't exist, then apologised so smoothly I almost thanked it."
-)
+TEXT = "My agent answered wrong with total confidence, cited three sources that don't exist, then apologised so smoothly I almost thanked it."
 
 
-def main():
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    assert 1 <= len(LINE) <= 140, "line must be 1-140 characters"
-    assert LINE.strip(), "line must not be only whitespace"
-    assert "\n" not in LINE, "line must be a single line"
-    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
-        f.write(LINE)
+def run():
+    if not 1 <= len(TEXT) <= 140:
+        raise SystemExit("entry must be 1-140 characters")
+    if not TEXT.strip():
+        raise SystemExit("entry must not be only whitespace")
+    if "\n" in TEXT:
+        raise SystemExit("entry must be a single line")
+    target = Path(environ.get("MAKEFUN_OUTPUT_DIR", "/output")) / "entry.txt"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(TEXT, encoding="utf-8")
 
 
-if __name__ == "__main__":
-    main()
+run()
